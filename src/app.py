@@ -31,6 +31,7 @@ fig6 = px.scatter(mental_health_df, x="status", y="mental_condition", size="perc
 #plt.scatter(Xtrain, ytrain);
 
 app = Dash(__name__)
+server=app.server
 
 app.layout = html.Div([
     dcc.Store(id="theme-store", data={"dark": False}),
@@ -119,4 +120,5 @@ def toggle_theme(n_clicks, theme_data):
         return "dark-theme", "px-4 py-2 m-4 bg-gray-200 text-black rounded", {"dark": True}
 
 if __name__ == '__main__':
-    app.run_server(debug=True, port=8080)
+port = int(os.environ.get('PORT', 8050))  # Default to 8050 if PORT not set
+    app.run_server(debug=False, port=port)
